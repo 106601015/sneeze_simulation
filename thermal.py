@@ -56,23 +56,36 @@ def drop_plot():
 def show_parcel_horizontal():
     #constant
     g=9.8 #m/s**2
-
-    u0=14 #m/s
     mu=18.5/10**6 #for air it is constant
     zo=1.293 #kg/m**3
     fr=mu/zo *10**5
 
-    t,d=[],[] #time and distance
+    t1,t2,d1,d2,a1,a2=[],[],[],[],[],[] #time and distance
+
+    u0=5 #m/s
     for i in range(31): #for 3s
-        t1=float(i/10)
-        t.append(t1)
-        d.append(u0/fr*(1-math.exp(-fr*t1)))
-        #print('for u0=',u0, 'and t1=',t1, ', parcel u:', u0*math.exp(-fr*t1), ', parcel distance:', u0/fr*(1-math.exp(-fr*t1)))
+        t=float(i/10)
+        t1.append(t)
+        d1.append(u0/fr*(1-math.exp(-fr*t)))
+        a1.append(9.7)
+
+    u0=14 #m/s
+    for i in range(31): #for 3s
+        t=float(i/10)
+        t2.append(t)
+        d2.append(u0/fr*(1-math.exp(-fr*t)))
+        a2.append(3.5)
 
     #plot
     fig = plt.figure()
     ax = plt.axes()
-    ax.plot(t, d)
+    ax.plot(t1, d1, label='V0=5m/s')
+    ax.plot(t1, a1, 'r--')
+    ax.plot(t2, d2, label='V0=14m/s')
+    ax.plot(t2, a2, 'r--')
+    plt.annotate('about 9.7m', (0,9.2))
+    plt.annotate('about 3.5m', (0,3))
+    ax.legend()
     plt.title('horizontal propagation distance', fontsize='large')
     ax.set_xlabel("time(s)", fontsize='large')
     ax.set_ylabel("distance(m)", fontsize='large')
@@ -133,7 +146,8 @@ def show_parcel_vertical():
     ax.set_ylabel("distance(m)", fontsize='large')
     plt.show()
 
-#drop_plot()
-#show_parcel_horizontal()
+drop_plot()
+show_parcel_horizontal()
 show_parcel_vertical()
-#print(cceq(300)*0.9, cceq(295))
+#print(cceq(300)/101325*0.622*1000)
+#print(cceq(299)/0.018*0.622)

@@ -109,9 +109,9 @@ def show_parcel_vertical():
     #print('parcel:', T, 'K es=', es,', e=', e, ', q=', q, ', Tv=', Tv)
 
     #environment
-    Te=295 #K
+    Te=273 #K
     ese=cceq(Te) #Pa
-    ee=ese*0.6 #Pa
+    ee=ese*0.8 #Pa
     qe=0.622*ee/101325
     Tve=Te*(1+0.62*qe) #virtual temperature
     #print('parcel:', Te, 'K es=', ese,', e=', ee, ', q=', qe, ', Tv=', Tve)
@@ -146,8 +146,8 @@ def show_parcel_vertical():
     ax.set_ylabel("distance(m)", fontsize='large')
     plt.show()
 
-drop_plot()
-show_parcel_horizontal()
-show_parcel_vertical()
+#drop_plot()
+#show_parcel_horizontal()
+#show_parcel_vertical()
 #print(cceq(300)/101325*0.622*1000)
-#print(cceq(299)/0.018*0.622)
+print(cceq(339))

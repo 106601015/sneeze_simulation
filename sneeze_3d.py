@@ -50,7 +50,7 @@ def show_parcel_3d():
 
         #z_line+=((Tv-Tve)/Tve)*g*del_t / cut
         accumulate += np.divide(np.multiply(((Tv-Tve)/Tve)*g, del_t),cut)
-        z_line = accumulate
+        z_line = np.add(1.7,accumulate)
 
         #print('===>', t1, Tv, (Tv-Tve), ((Tv-Tve)/Tve)*g*t1 / cut, d[-1])
         if i<=10: #in 1s

@@ -1,4 +1,4 @@
-from mpl_toolkits import mplot3d
+#from mpl_toolkits import mplot3d
 import numpy as np
 import matplotlib.pyplot as plt
 import math
@@ -53,23 +53,23 @@ def drop_plot():
     plt.show()
 
 #Show parcel horizontal distance over time
-def show_parcel_horizontal():
+def show_parcel_horizontal(fr_magnification, u01, u02):
     #constant
     g=9.8 #m/s**2
     mu=18.5/10**6 #for air it is constant
     zo=1.293 #kg/m**3
-    fr=mu/zo *10**5
+    fr=mu/zo *10**5 * fr_magnification
 
     t1,t2,d1,d2,a1,a2=[],[],[],[],[],[] #time and distance
 
-    u0=5 #m/s
+    u0=u01 #m/s
     for i in range(31): #for 3s
         t=float(i/10)
         t1.append(t)
         d1.append(u0/fr*(1-math.exp(-fr*t)))
         a1.append(9.7)
 
-    u0=14 #m/s
+    u0=u02 #m/s
     for i in range(31): #for 3s
         t=float(i/10)
         t2.append(t)
@@ -96,22 +96,20 @@ def cceq(T):
     return 2.53*10**11*math.exp(-5.42*1000/T)
 
 #given parcel and environment parameters, calculate and plot how parcel go
-def show_parcel_vertical():
+def show_parcel_vertical(T, Te, rhp, rhe):
     #constant
     g=9.8 #m/s**2
 
     #parcel
-    T=300 #K
     es=cceq(T) #Pa
-    e=es*0.9 #Pa
+    e=es*rhp #Pa
     q=0.622*e/101325
     Tv=T*(1+0.62*q) #virtual temperature
     #print('parcel:', T, 'K es=', es,', e=', e, ', q=', q, ', Tv=', Tv)
 
     #environment
-    Te=273 #K
     ese=cceq(Te) #Pa
-    ee=ese*0.8 #Pa
+    ee=ese*rhe #Pa
     qe=0.622*ee/101325
     Tve=Te*(1+0.62*qe) #virtual temperature
     #print('parcel:', Te, 'K es=', ese,', e=', ee, ', q=', qe, ', Tv=', Tve)
@@ -147,7 +145,7 @@ def show_parcel_vertical():
     plt.show()
 
 #drop_plot()
-#show_parcel_horizontal()
-#show_parcel_vertical()
-#print(cceq(300)/101325*0.622*1000)
+show_parcel_horizontal(1,5,14)
+show_parcel_vertical(300, 290, 0.9, 0.8)
+print(cceq(300)/101325*0.622*1000)
 print(cceq(339))
